@@ -25,11 +25,11 @@ public class LoginController {
 		boolean counter = studentDao.userlogin(student);
 		if(counter == true)
 		{
-			mv.setViewName("success");
+			mv.setViewName("error");
 		}
 		else
 		{
-			mv.setViewName("error");
+			mv.setViewName("success");
 		}
 		return mv;
 	}

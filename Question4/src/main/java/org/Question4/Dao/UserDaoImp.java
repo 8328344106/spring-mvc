@@ -25,7 +25,7 @@ public class UserDaoImp implements UserDao
 		try {
 
 			int counter = jdbcTemplate.update(sql,
-					new Object[] { student.getUsername(),student.getPassword(), student.getEmail()});
+					new Object[] { student.getUsername(),student.getEmail(),student.getPassword()});
 
 			return counter;
 
@@ -56,28 +56,6 @@ public class UserDaoImp implements UserDao
 		return studentList;
 	}
 
-	
-	public List<User> findStudentById(int studentId) {
-
-		List<User> studentList = jdbcTemplate.query("SELECT * FROM assignment4 where user_id=?",
-				new Object[] { studentId }, new RowMapper<User>() {
-
-					public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-						User student = new User();
-						
-						student.setId(rs.getInt("user_id"));
-						student.setUsername(rs.getString("user_name"));
-						student.setEmail(rs.getString("user_email"));
-						student.setPassword(rs.getString("user_password"));
-
-						return student;
-					}
-
-				});
-
-		return studentList;
-	}
-
 
 	public boolean userlogin(User user)
 	{
@@ -88,7 +66,7 @@ public class UserDaoImp implements UserDao
 						User student = new User();
 
 						student.setId(rs.getInt("user_id"));
-						student.setUsername(rs.getString("user_name"));
+						student.setUsername(rs.getString("user_username"));
 						student.setEmail(rs.getString("user_email"));
 						student.setPassword(rs.getString("user_password"));
 
@@ -96,7 +74,7 @@ public class UserDaoImp implements UserDao
 					}
 
 				});
-		if(studentList != null)
+		if(studentList.isEmpty())
 		{
 			return true;
 		}
